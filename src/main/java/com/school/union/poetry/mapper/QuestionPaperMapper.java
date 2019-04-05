@@ -7,7 +7,7 @@ import com.school.union.poetry.entity.QuestionPaper;
  * 试卷(QuestionPaper)表数据库访问层
  *
  * @author makejava
- * @since 2019-04-05 11:43:06
+ * @since 2019-04-05 19:23:43
  */
 public interface QuestionPaperMapper extends BaseMapper<QuestionPaper> {
 

@@ -15,6 +15,10 @@ public class QuestionResultVo implements Serializable {
     private static final long serialVersionUID = 6036469335670880036L;
 
     /**
+     * 题号
+     */
+    private Integer questionNo;
+    /**
      * 题目
      */
     private String question;
