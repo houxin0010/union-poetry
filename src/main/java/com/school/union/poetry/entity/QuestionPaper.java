@@ -1,9 +1,12 @@
 package com.school.union.poetry.entity;
 
 import java.util.Date;
+
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.context.annotation.Bean;
 
 /**
  * 试卷(QuestionPaper)表实体类
@@ -13,10 +16,9 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class QuestionPaper extends Model<QuestionPaper> {
+public class QuestionPaper extends BaseEntity {
     private static final long serialVersionUID = 995466897329282308L;
-    private Long id;
-    private Integer optimistic;
+
     /**
      * 玩家
      */
@@ -29,6 +31,10 @@ public class QuestionPaper extends Model<QuestionPaper> {
      * 试卷总分
      */
     private Integer totalPoints;
+    /**
+     * 已完成数量
+     */
+    private Integer completedNo;
     /**
      * 题目数量
      */
