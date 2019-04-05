@@ -1,6 +1,7 @@
 package com.school.union.poetry;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.mapper.AnswerRecordMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
