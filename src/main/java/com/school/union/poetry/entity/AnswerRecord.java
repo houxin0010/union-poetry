@@ -8,12 +8,12 @@ import lombok.EqualsAndHashCode;
  * 答题记录(AnswerRecord)表实体类
  *
  * @author makejava
- * @since 2019-04-05 17:01:22
+ * @since 2019-04-05 19:12:05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class AnswerRecord extends Model<AnswerRecord> {
-    private static final long serialVersionUID = 396754168684978587L;
+    private static final long serialVersionUID = 856296376653905624L;
     private Long id;
     private Integer optimistic;
     /**
