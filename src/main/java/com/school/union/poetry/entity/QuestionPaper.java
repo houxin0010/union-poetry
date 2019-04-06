@@ -1,12 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springframework.context.annotation.Bean;
+
+import java.util.Date;
 
 /**
  * 试卷(QuestionPaper)表实体类

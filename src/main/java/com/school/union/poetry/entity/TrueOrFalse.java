@@ -1,9 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 选择题(TrueOrFalse)表实体类
@@ -13,10 +14,11 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TrueOrFalse extends Model<TrueOrFalse> {
+public class TrueOrFalse extends BaseEntity {
     private static final long serialVersionUID = -92983804610115039L;
-    private Long id;
-    private Integer optimistic;
+    /**
+     * 问题
+     */
     private String question;
     /**
      * 答案，0，1

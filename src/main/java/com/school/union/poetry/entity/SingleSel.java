@@ -1,9 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 选择题(SingleSel)表实体类
@@ -13,10 +14,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SingleSel extends Model<SingleSel> {
+public class SingleSel extends BaseEntity {
     private static final long serialVersionUID = 667286701793070500L;
-    private Long id;
-    private Integer optimistic;
     /**
      * 题目
      */

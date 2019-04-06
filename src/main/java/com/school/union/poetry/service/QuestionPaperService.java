@@ -8,5 +8,5 @@ package com.school.union.poetry.service;
  */
 public interface QuestionPaperService {
 
-    String createQuestionPaper(String openId);
+    Long createQuestionPaper(String openId);
 }

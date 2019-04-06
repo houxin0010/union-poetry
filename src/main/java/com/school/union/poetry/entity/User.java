@@ -1,9 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * (User)表实体类
@@ -13,13 +14,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class User extends Model<User> {
+public class User extends BaseEntity {
     private static final long serialVersionUID = 355324595733583375L;
-    /**
-     * 主键
-     */
-    private Long id;
-    private Integer optimistic;
     private String username;
     private String password;
     private String telephone;

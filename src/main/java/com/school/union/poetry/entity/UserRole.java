@@ -1,6 +1,6 @@
 package com.school.union.poetry.entity;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,10 +12,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class UserRole extends Model<UserRole> {
+public class UserRole extends BaseEntity {
     private static final long serialVersionUID = -92953360779350734L;
-    private Long id;
-    private Integer optimistic;
     private Integer userId;
     private Integer roleId;
 }

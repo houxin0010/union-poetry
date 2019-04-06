@@ -1,6 +1,6 @@
 package com.school.union.poetry.entity;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,10 +14,8 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class Completion extends Model<Completion> {
+public class Completion extends BaseEntity {
     private static final long serialVersionUID = 695085603219906852L;
-    private Long id;
-    private Integer optimistic;
     /**
      * 题目
      */

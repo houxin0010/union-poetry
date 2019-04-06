@@ -1,7 +1,5 @@
 package com.school.union.poetry.entity.base;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 

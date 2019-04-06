@@ -1,9 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 选词填空（九宫格）(BankedCloze)表实体类
@@ -13,10 +14,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class BankedCloze extends Model<BankedCloze> {
+public class BankedCloze extends BaseEntity {
     private static final long serialVersionUID = 754206692491121504L;
-    private Long id;
-    private Integer optimistic;
     /**
      * 题目
      */

@@ -1,9 +1,10 @@
 package com.school.union.poetry.entity;
 
-import java.util.Date;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Date;
 
 /**
  * 答题记录(AnswerRecord)表实体类
@@ -13,10 +14,8 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AnswerRecord extends Model<AnswerRecord> {
+public class AnswerRecord extends BaseEntity {
     private static final long serialVersionUID = -98665542703938810L;
-    private Long id;
-    private Integer optimistic;
     /**
      * 试卷ID
      */
