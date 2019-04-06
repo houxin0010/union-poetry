@@ -2,9 +2,10 @@ package com.school.union.poetry.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.school.union.poetry.constant.QuestionType;
+import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.entity.QuestionPaper;
 import com.school.union.poetry.mapper.QuestionPaperMapper;
-import com.school.union.poetry.service.QuestionPaperService;
+import com.school.union.poetry.service.*;
 import com.school.union.poetry.util.EnumUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,15 @@ public class QuestionPaperServiceImpl implements QuestionPaperService {
     @Autowired
     private QuestionPaperMapper questionPaperMapper;
 
+    @Autowired
+    private SingleSelService singleSelService;
+    @Autowired
+    private BankedClozeService bankedClozeService;
+    @Autowired
+    private CompletionService completionService;
+    @Autowired
+    private AnswerRecordService answerRecordService;
+
     @Override
     public Long createQuestionPaper(String openId) {
 
@@ -41,20 +51,18 @@ public class QuestionPaperServiceImpl implements QuestionPaperService {
             questionPaper.setTotalPoints(100);
             questionPaper.setCreateTime(new Date());
             questionPaperMapper.insert(questionPaper);
-            while (questionTotal > 0) {
+
+            for (int i = 1; i <= questionTotal; i++) {
                 QuestionType questionType = EnumUtil.random(QuestionType.class);
                 log.info("questionType = {}", questionType);
-                switch (questionType) {
-                    case COMPLETION:
-
-                        break;
-                    case SINGLE_SEL:
-                        break;
-                    case BANKED_CLOZE:
-                        break;
-                    default:
-                }
-                questionTotal--;
+                AnswerRecord answerRecord = new AnswerRecord();
+                answerRecord.setQuestionPaperId(questionPaper.getId());
+                answerRecord.setQuestionNo(i);
+                answerRecord.setQuestionType(questionType.toString());
+                answerRecord.setIsAccomplish(false);
+                answerRecord.setCreateTime(new Date());
+                answerRecord.setQuestionId(answerRecordService.randomQuestionId(questionPaper.getId(), questionType));
+                answerRecordService.createAnswerRecord(answerRecord);
             }
             return questionPaper.getId();
         } else {
