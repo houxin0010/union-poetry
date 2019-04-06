@@ -1,7 +1,6 @@
 package com.school.union.poetry.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.school.union.poetry.constant.QuestionType;
 import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.mapper.AnswerRecordMapper;
