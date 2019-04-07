@@ -2,6 +2,7 @@ package com.school.union.poetry.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.school.union.poetry.entity.AnswerRecord;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 /**

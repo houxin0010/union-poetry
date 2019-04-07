@@ -39,4 +39,8 @@ public class QuestionResultVo implements Serializable {
      * 题目数量
      */
     private Integer questionTotal;
+    /**
+     * 当前分数
+     */
+    private Integer currentScore;
 }

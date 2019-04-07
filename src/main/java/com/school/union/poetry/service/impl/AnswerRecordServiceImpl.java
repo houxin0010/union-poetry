@@ -1,6 +1,7 @@
 package com.school.union.poetry.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.school.union.poetry.constant.QuestionType;
 import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.mapper.AnswerRecordMapper;
@@ -11,6 +12,8 @@ import com.school.union.poetry.service.SingleSelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class AnswerRecordServiceImpl implements AnswerRecordService {
@@ -54,6 +57,14 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
             return questionId;
         }
         return randomQuestionId(questionPaperId, questionType);
+    }
+
+    @Override
+    public AnswerRecord getAnswerRecord(Long questionPaperId, Integer questionNumber) {
+        AnswerRecord answerRecord = new AnswerRecord();
+        answerRecord.setQuestionPaperId(Optional.ofNullable(questionPaperId).orElse(0L));
+        answerRecord.setQuestionNo(Optional.ofNullable(questionNumber).orElse(0));
+        return answerRecordMapper.selectOne(new QueryWrapper<>(answerRecord));
     }
 
 }

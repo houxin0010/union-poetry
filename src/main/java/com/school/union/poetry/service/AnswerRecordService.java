@@ -8,4 +8,7 @@ public interface AnswerRecordService {
     void createAnswerRecord(AnswerRecord answerRecord);
 
     Long randomQuestionId(Long questionPaperId, QuestionType questionType);
+
+    AnswerRecord getAnswerRecord(Long questionPaperId, Integer questionNumber);
+
 }

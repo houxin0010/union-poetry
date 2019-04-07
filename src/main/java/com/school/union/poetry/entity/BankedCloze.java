@@ -1,5 +1,6 @@
 package com.school.union.poetry.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,7 +24,7 @@ public class BankedCloze extends BaseEntity {
     /**
      * 可选择的字，以英文逗号分隔
      */
-    private String option;
+    private String options;
     /**
      * 答案
      */
