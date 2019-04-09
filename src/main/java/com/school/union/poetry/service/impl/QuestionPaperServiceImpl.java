@@ -7,6 +7,7 @@ import com.school.union.poetry.entity.*;
 import com.school.union.poetry.mapper.QuestionPaperMapper;
 import com.school.union.poetry.service.*;
 import com.school.union.poetry.util.EnumUtil;
+import com.school.union.poetry.vo.QuestionPaperInitVo;
 import com.school.union.poetry.vo.QuestionResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,9 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
     private BankedClozeService bankedClozeService;
 
     @Override
-    public Long createQuestionPaper(String openId) {
+    public QuestionPaperInitVo createQuestionPaper(String openId) {
 
+        QuestionPaperInitVo questionPaperInitVo = new QuestionPaperInitVo();
         QuestionPaper questionPaper = new QuestionPaper();
         questionPaper.setStatus(0);
         questionPaper.setOpenId(openId);
@@ -54,6 +56,9 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
             for (int i = 1; i <= questionTotal; i++) {
                 QuestionType questionType = EnumUtil.random(QuestionType.class);
                 log.info("questionType = {}", questionType);
+                if (i == 1) {
+                    questionPaperInitVo.setFirstQuestionType(questionType.name());
+                }
                 AnswerRecord answerRecord = new AnswerRecord();
                 answerRecord.setQuestionPaperId(questionPaper.getId());
                 answerRecord.setQuestionNo(i);
@@ -63,9 +68,16 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
                 answerRecord.setQuestionId(answerRecordService.randomQuestionId(questionPaper.getId(), questionType));
                 answerRecordService.createAnswerRecord(answerRecord);
             }
-            return questionPaper.getId();
+            questionPaperInitVo.setQuestionPaperId(questionPaper.getId());
+            return questionPaperInitVo;
         } else {
-            return questionPaperCheck.getId();
+            questionPaperInitVo.setQuestionPaperId(questionPaperCheck.getId());
+            AnswerRecord newestAnswerRecord = answerRecordService.getNewestAnswerRecord(questionPaperCheck.getId());
+            if (newestAnswerRecord != null) {
+                questionPaperInitVo.setFirstQuestionType(newestAnswerRecord.getQuestionType());
+                questionPaperInitVo.setQuestionNo(newestAnswerRecord.getQuestionNo());
+            }
+            return questionPaperInitVo;
         }
     }
 

@@ -9,6 +9,8 @@ public interface AnswerRecordService {
 
     Long randomQuestionId(Long questionPaperId, QuestionType questionType);
 
+    AnswerRecord getNewestAnswerRecord(Long questionPaperId);
+
     AnswerRecord getAnswerRecord(Long questionPaperId, Integer questionNumber);
 
 }
