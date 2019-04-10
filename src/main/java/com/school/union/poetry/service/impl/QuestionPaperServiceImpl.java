@@ -12,6 +12,7 @@ import com.school.union.poetry.vo.QuestionResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -82,9 +83,9 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
     }
 
     @Override
-    public QuestionResultVo getQuestionContent(Long questionPaperId, Integer questionNumber) {
+    public QuestionResultVo getQuestionContent(Long questionPaperId) {
         QuestionPaper questionPaper = questionPaperMapper.selectById(questionPaperId);
-        AnswerRecord answerRecord = answerRecordService.getAnswerRecord(questionPaperId, questionNumber);
+        AnswerRecord answerRecord = answerRecordService.getNewestAnswerRecord(questionPaperId);
         if (questionPaper != null) {
             QuestionResultVo questionResultVo = new QuestionResultVo();
             questionResultVo.setCurrentScore(questionPaper.getScore());
@@ -116,6 +117,27 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
                 }
             }
             return questionResultVo;
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public String completeQuestion(Long questionPaperId, Boolean isCorrect) {
+        QuestionPaper questionPaper = questionPaperMapper.selectById(questionPaperId);
+        AnswerRecord answerRecord = answerRecordService.getNewestAnswerRecord(questionPaperId);
+        if (isCorrect) {
+            questionPaper.setScore(questionPaper.getScore() + 10);
+            answerRecord.setIsCorrect(isCorrect);
+        }
+        questionPaper.setCompletedNo(questionPaper.getCompletedNo() + 1);
+        questionPaperMapper.updateById(questionPaper);
+        answerRecord.setIsAccomplish(true);
+        answerRecordService.updateById(answerRecord);
+
+        AnswerRecord nextAnswerRecord = answerRecordService.getNewestAnswerRecord(questionPaperId);
+        if (nextAnswerRecord != null) {
+            return nextAnswerRecord.getQuestionType();
         }
         return null;
     }

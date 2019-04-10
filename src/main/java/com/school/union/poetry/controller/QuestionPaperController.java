@@ -22,7 +22,12 @@ public class QuestionPaperController {
     }
 
     @RequestMapping("/getQuestion")
-    public ResultVo<QuestionResultVo> getQuestion(Long questionPaperId, Integer questionNumber) {
-        return ResultVo.success(questionPaperService.getQuestionContent(questionPaperId, questionNumber));
+    public ResultVo<QuestionResultVo> getQuestion(Long questionPaperId) {
+        return ResultVo.success(questionPaperService.getQuestionContent(questionPaperId));
+    }
+
+    @RequestMapping("/completeQuestion")
+    public ResultVo<String> completeQuestion(Long questionPaperId, Boolean isCorrect) {
+        return ResultVo.success(questionPaperService.completeQuestion(questionPaperId, isCorrect));
     }
 }

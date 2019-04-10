@@ -1,9 +1,10 @@
 package com.school.union.poetry.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.school.union.poetry.constant.QuestionType;
 import com.school.union.poetry.entity.AnswerRecord;
 
-public interface AnswerRecordService {
+public interface AnswerRecordService extends IService<AnswerRecord> {
 
     void createAnswerRecord(AnswerRecord answerRecord);
 

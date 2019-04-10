@@ -2,6 +2,7 @@ package com.school.union.poetry.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.union.poetry.constant.QuestionType;
 import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.mapper.AnswerRecordMapper;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AnswerRecordServiceImpl implements AnswerRecordService {
+public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, AnswerRecord> implements AnswerRecordService {
 
     @Autowired
     private AnswerRecordMapper answerRecordMapper;
@@ -64,6 +65,7 @@ public class AnswerRecordServiceImpl implements AnswerRecordService {
     public AnswerRecord getNewestAnswerRecord(Long questionPaperId) {
         List<AnswerRecord> answerRecords = answerRecordMapper.selectList(new LambdaQueryWrapper<AnswerRecord>()
                 .eq(AnswerRecord::getQuestionPaperId, questionPaperId)
+                .eq(AnswerRecord::getIsAccomplish, false)
                 .orderByAsc(AnswerRecord::getQuestionNo));
         if (answerRecords != null && !answerRecords.isEmpty()) {
             return answerRecords.stream().findFirst().get();
