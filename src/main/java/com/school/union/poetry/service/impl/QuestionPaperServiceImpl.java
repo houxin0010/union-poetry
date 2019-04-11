@@ -142,6 +142,8 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
         if (nextAnswerRecord != null) {
             return nextAnswerRecord.getQuestionType();
         }
+        questionPaper.setStatus(1);
+        questionPaperMapper.updateById(questionPaper);
         return null;
     }
 }
