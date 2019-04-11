@@ -1,5 +1,6 @@
 package com.school.union.poetry.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.union.poetry.constant.QuestionType;
@@ -44,7 +45,9 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
         QuestionPaper questionPaper = new QuestionPaper();
         questionPaper.setStatus(0);
         questionPaper.setOpenId(openId);
-        QuestionPaper questionPaperCheck = questionPaperMapper.selectOne(new QueryWrapper<>(questionPaper));
+        QuestionPaper questionPaperCheck = questionPaperMapper.selectOne(new LambdaQueryWrapper<QuestionPaper>()
+                .eq(QuestionPaper::getStatus, 0)
+                .eq(QuestionPaper::getOpenId, openId));
         if (questionPaperCheck == null) {
             int questionTotal = 10;
             questionPaper.setScore(0);
