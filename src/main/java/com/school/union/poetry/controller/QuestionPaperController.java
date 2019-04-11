@@ -30,4 +30,10 @@ public class QuestionPaperController {
     public ResultVo<String> completeQuestion(Long questionPaperId, Boolean isCorrect) {
         return ResultVo.success(questionPaperService.completeQuestion(questionPaperId, isCorrect));
     }
+
+    @RequestMapping("/getAnswerResult")
+    public ResultVo<?> getAnswerResult(Long questionPaperId) {
+
+        return ResultVo.success(null);
+    }
 }
