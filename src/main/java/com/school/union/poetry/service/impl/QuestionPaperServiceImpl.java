@@ -29,6 +29,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Service
+@Transactional
 public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, QuestionPaper> implements QuestionPaperService {
 
     @Autowired
