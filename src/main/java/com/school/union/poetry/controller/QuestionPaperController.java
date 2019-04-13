@@ -28,8 +28,7 @@ public class QuestionPaperController {
 
     @RequestMapping("/getcode")
     public ResultVo<String> getcode(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9d98970b60072e66e66&secret=57ae72018a581f2a15be8ce971036dc0&js_code=" + code + "&grant_type=authorization_code";
-
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9d98970b60072e66&secret=57ae72018a581f2a15be8ce971036dc0&js_code=" + code + "&grant_type=authorization_code";                                                               
         String json = HttpKit.get(url);
         log.info("getcode json = {}", json);
         JSONObject a = JSONObject.parseObject(json);
