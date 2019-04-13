@@ -6,8 +6,10 @@ import com.school.union.poetry.mapper.CompletionMapper;
 import com.school.union.poetry.service.CompletionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class CompletionServiceImpl extends ServiceImpl<CompletionMapper, Completion> implements CompletionService {
 
     @Autowired
