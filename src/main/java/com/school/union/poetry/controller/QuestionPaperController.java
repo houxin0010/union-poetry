@@ -22,14 +22,13 @@ public class QuestionPaperController {
     private QuestionPaperService questionPaperService;
 
     @RequestMapping("/init")
-    public ResultVo<QuestionPaperInitVo> questionPaperInit() {
-        String openId = "houxin";
+    public ResultVo<QuestionPaperInitVo> questionPaperInit(String openId) {
         return ResultVo.success(questionPaperService.createQuestionPaper(openId));
     }
 
     @RequestMapping("/getcode")
     public ResultVo<String> getcode(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9d98970b60072e66&secret=57ae72018a581f2a15be8ce971036dc0&js_code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9d98970b60072e66e66&secret=57ae72018a581f2a15be8ce971036dc0&js_code=" + code + "&grant_type=authorization_code";
 
         String json = HttpKit.get(url);
         log.info("getcode json = {}", json);
@@ -50,7 +49,6 @@ public class QuestionPaperController {
 
     @RequestMapping("/getAnswerResult")
     public ResultVo<AnswerResultVo> getAnswerResult(Long questionPaperId, String openId) {
-        openId = "houxin";
         return ResultVo.success(questionPaperService.getScore(questionPaperId, openId));
     }
 }
