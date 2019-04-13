@@ -1,5 +1,6 @@
 package com.school.union.poetry.controller;
 
+import com.school.union.poetry.vo.AnswerResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,7 @@ public class QuestionPaperController {
     }
 
     @RequestMapping("/getAnswerResult")
-    public ResultVo<?> getAnswerResult(Long questionPaperId) {
+    public ResultVo<AnswerResultVo> getAnswerResult(Long questionPaperId, String openId) {
 
         return ResultVo.success(null);
     }

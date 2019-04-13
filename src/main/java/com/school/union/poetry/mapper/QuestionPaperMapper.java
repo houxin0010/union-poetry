@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.school.union.poetry.entity.QuestionPaper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 试卷(QuestionPaper)表数据库访问层
  *

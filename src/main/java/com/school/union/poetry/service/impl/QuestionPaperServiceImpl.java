@@ -2,12 +2,14 @@ package com.school.union.poetry.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.union.poetry.constant.QuestionType;
 import com.school.union.poetry.entity.*;
 import com.school.union.poetry.mapper.QuestionPaperMapper;
 import com.school.union.poetry.service.*;
 import com.school.union.poetry.util.EnumUtil;
+import com.school.union.poetry.vo.AnswerResultVo;
 import com.school.union.poetry.vo.QuestionPaperInitVo;
 import com.school.union.poetry.vo.QuestionResultVo;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * QuestionPaperServiceImpl
@@ -146,4 +149,18 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
         questionPaperMapper.updateById(questionPaper);
         return null;
     }
+
+    @Override
+    public AnswerResultVo getScore(Long questionPaperId, String openId) {
+        AnswerResultVo answerResultVo = new AnswerResultVo();
+        QuestionPaper questionPaper = questionPaperMapper.selectById(questionPaperId);
+        answerResultVo.setCurrentScore(questionPaper.getScore());
+        List<QuestionPaper> questionPapers = questionPaperMapper.selectList(new LambdaUpdateWrapper<QuestionPaper>()
+                .eq(QuestionPaper::getOpenId, openId)
+                .orderByDesc(QuestionPaper::getCreateTime));
+        List<Integer> scoreList = questionPapers.stream().map(QuestionPaper::getScore).limit(5).collect(Collectors.toList());
+        answerResultVo.setHisScore(scoreList);
+        return answerResultVo;
+    }
+
 }
