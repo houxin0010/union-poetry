@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -158,8 +159,15 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
         List<QuestionPaper> questionPapers = questionPaperMapper.selectList(new LambdaUpdateWrapper<QuestionPaper>()
                 .eq(QuestionPaper::getOpenId, openId)
                 .orderByDesc(QuestionPaper::getCreateTime));
-        List<Integer> scoreList = questionPapers.stream().map(QuestionPaper::getScore).limit(5).collect(Collectors.toList());
-        answerResultVo.setHisScore(scoreList);
+        List<Map<String, Object>> hisScore = new ArrayList<>();
+        questionPapers.stream().limit(3).forEach(paper -> {
+            Map<String, Object> scoreMap = new HashMap<>(16);
+            scoreMap.put("hisScore", paper.getScore());
+            scoreMap.put("date", new SimpleDateFormat("yyyy-MM-dd").format(paper.getCreateTime()));
+            hisScore.add(scoreMap);
+        });
+
+        answerResultVo.setHisScore(hisScore);
         return answerResultVo;
     }
 

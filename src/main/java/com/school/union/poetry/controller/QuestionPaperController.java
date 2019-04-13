@@ -49,7 +49,7 @@ public class QuestionPaperController {
 
     @RequestMapping("/getAnswerResult")
     public ResultVo<AnswerResultVo> getAnswerResult(Long questionPaperId, String openId) {
-
-        return ResultVo.success(null);
+        openId = "houxin";
+        return ResultVo.success(questionPaperService.getScore(questionPaperId, openId));
     }
 }
