@@ -2,6 +2,9 @@ package com.school.union.poetry.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.school.union.poetry.entity.SingleSel;
+
+import java.util.List;
+
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +17,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SingleSelMapper extends BaseMapper<SingleSel> {
 
-    @Select(value = "SELECT id FROM single_sel WHERE id >= ((SELECT MAX(id) FROM single_sel) - (SELECT MIN(id) FROM single_sel)) * RAND() + (SELECT MIN(id) FROM single_sel) LIMIT 1")
+    @Select( value = "SELECT id FROM single_sel WHERE id >= ((SELECT MAX(id) FROM single_sel) - (SELECT MIN(id) FROM single_sel)) * RAND() + (SELECT MIN(id) FROM single_sel) LIMIT 1")
     Long selectRandomId();
+    
+    @Select( value = "SELECT id FROM single_sel")
+    List<Long> selectIds();
 }

@@ -4,6 +4,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.union.poetry.entity.Completion;
 import com.school.union.poetry.mapper.CompletionMapper;
 import com.school.union.poetry.service.CompletionService;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class CompletionServiceImpl extends ServiceImpl<CompletionMapper, Completion> implements CompletionService {
 
+	 
     @Autowired
     private CompletionMapper completionMapper;
 
@@ -19,4 +23,11 @@ public class CompletionServiceImpl extends ServiceImpl<CompletionMapper, Complet
     public Long randomCompletion() {
         return completionMapper.selectRandomId();
     }
+
+	@Override
+	public List<Long> selectIds() {
+		return completionMapper.selectIds();
+	}
+    
+    
 }

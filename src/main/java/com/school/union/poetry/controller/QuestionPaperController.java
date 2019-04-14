@@ -23,7 +23,7 @@ public class QuestionPaperController {
 
     @RequestMapping("/init")
     public ResultVo<QuestionPaperInitVo> questionPaperInit(String openId) {
-        return ResultVo.success(questionPaperService.createQuestionPaper(openId));
+        return ResultVo.success(questionPaperService.createQuestionPaperNew(openId));
     }
 
     @RequestMapping("/getcode")

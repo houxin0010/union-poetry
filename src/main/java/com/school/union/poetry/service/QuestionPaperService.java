@@ -21,4 +21,6 @@ public interface QuestionPaperService extends IService<QuestionPaper> {
     String completeQuestion(Long questionPaperId, Boolean isCorrect);
 
     AnswerResultVo getScore(Long questionPaperId, String openId);
+
+	QuestionPaperInitVo createQuestionPaperNew(String openId);
 }
