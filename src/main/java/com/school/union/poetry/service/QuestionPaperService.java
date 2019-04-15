@@ -1,8 +1,12 @@
 package com.school.union.poetry.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.school.union.poetry.entity.QuestionPaper;
 import com.school.union.poetry.vo.AnswerResultVo;
+import com.school.union.poetry.vo.QuestionInitVo;
+import com.school.union.poetry.vo.QuestionVo;
 import com.school.union.poetry.vo.QuestionPaperInitVo;
 import com.school.union.poetry.vo.QuestionResultVo;
 
@@ -17,10 +21,11 @@ public interface QuestionPaperService extends IService<QuestionPaper> {
     QuestionPaperInitVo createQuestionPaper(String openId);
 
     QuestionResultVo getQuestionContent(Long questionPaperId);
-
+    QuestionResultVo getQuestionContent(Long questionId,String questionType);
+ 
     String completeQuestion(Long questionPaperId, Boolean isCorrect);
 
     AnswerResultVo getScore(Long questionPaperId, String openId);
 
-	QuestionPaperInitVo createQuestionPaperNew(String openId);
+    QuestionInitVo createQuestionPaperNew();
 }

@@ -75,7 +75,41 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
 		}
 		return randomQuestionId(questionPaperId, questionType);
 	}
+	@Override
+	public Long randomQuestionId(List<String> curQuestion, QuestionType questionType) {
+		Long questionId = null;
+		switch (questionType) {
+		case COMPLETION:
+			if (completionIds == null) {
+				completionIds = completionService.selectIds();
+			}
+			questionId = completionIds.get(new Random().nextInt(completionIds.size()));
+			break;
+		case SINGLE_SEL:
+			if (singleSelIds == null) {
+				singleSelIds = singleSelService.selectIds();
+			}
+			questionId = singleSelIds.get(new Random().nextInt(singleSelIds.size()));
+			break;
+		case BANKED_CLOZE:
+			if (bankedClozeIds == null) {
+				bankedClozeIds = bankedClozeService.selectIds();
+			}
+			questionId = bankedClozeIds.get(new Random().nextInt(bankedClozeIds.size()));
+			break;
+		default:
+		}
+		 
+		if(!curQuestion.contains(questionType+"-"+questionId.toString()))
+		{
+			curQuestion.add(questionType+"-"+questionId.toString());
+			return questionId;
+		}
+		 
+		return randomQuestionId(curQuestion, questionType);
+	}
 
+	
 	@Override
 	public AnswerRecord getNewestAnswerRecord(Long questionPaperId) {
 		List<AnswerRecord> answerRecords = answerRecordMapper

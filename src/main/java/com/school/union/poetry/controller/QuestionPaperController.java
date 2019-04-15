@@ -1,7 +1,13 @@
 package com.school.union.poetry.controller;
 
 import com.school.union.poetry.vo.AnswerResultVo;
+import com.school.union.poetry.vo.QuestionInitVo;
+import com.school.union.poetry.vo.QuestionVo;
+
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +28,8 @@ public class QuestionPaperController {
     private QuestionPaperService questionPaperService;
 
     @RequestMapping("/init")
-    public ResultVo<QuestionPaperInitVo> questionPaperInit(String openId) {
-        return ResultVo.success(questionPaperService.createQuestionPaperNew(openId));
+    public ResultVo<QuestionInitVo> questionPaperInit() {
+        return ResultVo.success(questionPaperService.createQuestionPaperNew());
     }
 
     @RequestMapping("/getcode")
@@ -36,9 +42,14 @@ public class QuestionPaperController {
         return ResultVo.success(openid);
     }
 
-    @RequestMapping("/getQuestion")
+   /* @RequestMapping("/getQuestion")
     public ResultVo<QuestionResultVo> getQuestion(Long questionPaperId) {
         return ResultVo.success(questionPaperService.getQuestionContent(questionPaperId));
+    }*/
+    
+    @RequestMapping("/getQuestion")
+    public ResultVo<QuestionResultVo> getQuestion(Long questionId,String questionType) {
+        return ResultVo.success(questionPaperService.getQuestionContent(questionId,questionType));
     }
 
     @RequestMapping("/completeQuestion")
