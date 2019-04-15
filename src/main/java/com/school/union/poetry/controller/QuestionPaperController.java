@@ -28,7 +28,7 @@ public class QuestionPaperController {
 
     @RequestMapping("/getcode")
     public ResultVo<String> getcode(String code) {
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9d98970b60072e66&secret=57ae72018a581f2a15be8ce971036dc0&js_code=" + code + "&grant_type=authorization_code";                                                               
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx4440a5b57f80fb27&secret=ac9e5b022bfafe10b3feec9c44bc3703&js_code=" + code + "&grant_type=authorization_code";                                                               
         String json = HttpKit.get(url);
         log.info("getcode json = {}", json);
         JSONObject a = JSONObject.parseObject(json);
@@ -48,6 +48,9 @@ public class QuestionPaperController {
 
     @RequestMapping("/getAnswerResult")
     public ResultVo<AnswerResultVo> getAnswerResult(Long questionPaperId, String openId) {
-        return ResultVo.success(questionPaperService.getScore(questionPaperId, openId));
+    	  log.info("获取答题结果参数{0},{1}", questionPaperId,openId);
+    	  ResultVo<AnswerResultVo>  ret= ResultVo.success(questionPaperService.getScore(questionPaperId, openId));
+    	  log.info("获取答题结果", JSONObject.toJSONString(ret));
+    	  return ret;
     }
 }

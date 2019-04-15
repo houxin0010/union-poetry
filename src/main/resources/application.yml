@@ -1,4 +1,6 @@
 spring:
+  jmx:
+    enabled: false
 #  datasource:
 #    username: root
 #    password: xxx000
@@ -20,14 +22,14 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
+    
 server:
   tomcat:
     uri-encoding: UTF-8
   servlet:
     session:
       timeout: 120m
-  port: 10086
+  port: 10087
 
 logging:
   level:

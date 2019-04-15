@@ -101,7 +101,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
                 .eq(QuestionPaper::getStatus, 0)
                 .eq(QuestionPaper::getOpenId, openId));
         if (questionPaperCheck == null) {
-            int questionTotal = 20;
+            int questionTotal = 5;
             questionPaper.setScore(0);
             questionPaper.setCompletedNo(0);
             questionPaper.setQuestionTotal(questionTotal);
