@@ -97,7 +97,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
 		QuestionInitVo result = new QuestionInitVo();
 		List<QuestionVo> questions = new ArrayList<QuestionVo>();
 		List<String> curQuestion = new ArrayList<String>();
-		int questionTotal = 5;
+		int questionTotal = 20;
 		QuestionVo questionVo;
 		for (int i = 1; i <= questionTotal; i++) {
 
