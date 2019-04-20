@@ -145,6 +145,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
             questionResultVo.setAnswer(bankedCloze.getAnswer());
             String optionsStr = Optional.ofNullable(bankedCloze.getOptions()).orElse("");
             List<String> options = Arrays.asList(optionsStr.split(","));
+            Collections.shuffle(options);
             questionResultVo.setOptions(options);
         }
         return questionResultVo;
