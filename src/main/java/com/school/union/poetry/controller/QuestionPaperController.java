@@ -29,7 +29,7 @@ public class QuestionPaperController {
 
     @RequestMapping("/init")
     public ResultVo<QuestionInitVo> questionPaperInit(int grade) {
-        return ResultVo.success(questionPaperService.createQuestionPaperNew( grade));
+        return ResultVo.success(questionPaperService.createQuestionPaperNew(grade));
     }
 
     @RequestMapping("/getcode")
