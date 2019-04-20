@@ -1,5 +1,6 @@
 package com.school.union.poetry.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.school.union.poetry.entity.Completion;
 import com.school.union.poetry.mapper.CompletionMapper;
@@ -26,6 +27,7 @@ public class CompletionServiceImpl extends ServiceImpl<CompletionMapper, Complet
 
 	@Override
 	public List<Long> selectIds(int grade) {
+		//completionMapper.selectList(new QueryWrapper<Completion>().eq("grade", grade));
 		return completionMapper.selectIds(grade);
 	}
     

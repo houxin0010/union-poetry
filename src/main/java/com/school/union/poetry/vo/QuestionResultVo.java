@@ -43,4 +43,6 @@ public class QuestionResultVo implements Serializable {
      * 当前分数
      */
     private Integer currentScore;
+    
+    private String type;//填空題是上句还是下句
 }

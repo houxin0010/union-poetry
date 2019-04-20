@@ -125,6 +125,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
 					Completion completion = completionService.getById(questionId);
 					questionResultVo.setQuestion(completion.getQuestion());
 					questionResultVo.setAnswer(completion.getAnswer());
+					questionResultVo.setType(completion.getType());
 				} else if (QuestionType.SINGLE_SEL.name().equals(questionType)) {
 					SingleSel singleSel = singleSelService.getById(questionId);
 					questionResultVo.setQuestion(singleSel.getQuestion());
