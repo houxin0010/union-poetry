@@ -10,8 +10,7 @@ public interface AnswerRecordService extends IService<AnswerRecord> {
 
     void createAnswerRecord(AnswerRecord answerRecord);
 
-    Long randomQuestionId(Long questionPaperId, QuestionType questionType);
-    Long randomQuestionId(List<String> curQuestion, QuestionType questionType);
+     Long randomQuestionId(List<String> curQuestion, QuestionType questionType,int grade);
 
     AnswerRecord getNewestAnswerRecord(Long questionPaperId);
 

@@ -20,6 +20,6 @@ public interface BankedClozeMapper extends BaseMapper<BankedCloze> {
     @Select(value = "SELECT id FROM banked_cloze WHERE id >= ((SELECT MAX(id) FROM banked_cloze) - (SELECT MIN(id) FROM banked_cloze)) * RAND() + (SELECT MIN(id) FROM banked_cloze) LIMIT 1")
     Long selectRandomId();
     
-    @Select(value = "SELECT id FROM banked_cloze")
-    List<Long> selectIds();
+    @Select(value = "SELECT id FROM banked_cloze where grade=#{grade}")
+    List<Long> selectIds(int grade);
 }

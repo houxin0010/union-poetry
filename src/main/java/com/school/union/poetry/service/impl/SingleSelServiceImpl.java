@@ -24,9 +24,9 @@ public class SingleSelServiceImpl extends ServiceImpl<SingleSelMapper, SingleSel
     }
 
 	@Override
-	public List<Long> selectIds() {
+	public List<Long> selectIds(int grade) {
 		 
-		return singleSelMapper.selectIds();
+		return singleSelMapper.selectIds(grade);
 	}
 
 }

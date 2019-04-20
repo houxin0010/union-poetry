@@ -46,54 +46,10 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
 	@Autowired
 	private BankedClozeService bankedClozeService;
 
-	@Override
-	public QuestionPaperInitVo createQuestionPaper(String openId) {
-
-		QuestionPaperInitVo questionPaperInitVo = new QuestionPaperInitVo();
-		QuestionPaper questionPaper = new QuestionPaper();
-		questionPaper.setStatus(0);
-		questionPaper.setOpenId(openId);
-		QuestionPaper questionPaperCheck = questionPaperMapper.selectOne(new LambdaQueryWrapper<QuestionPaper>()
-				.eq(QuestionPaper::getStatus, 0).eq(QuestionPaper::getOpenId, openId));
-		if (questionPaperCheck == null) {
-			int questionTotal = 20;
-			questionPaper.setScore(0);
-			questionPaper.setCompletedNo(0);
-			questionPaper.setQuestionTotal(questionTotal);
-			questionPaper.setTotalPoints(100);
-			questionPaper.setCreateTime(new Date());
-			questionPaperMapper.insert(questionPaper);
-
-			for (int i = 1; i <= questionTotal; i++) {
-				QuestionType questionType = EnumUtil.random(QuestionType.class);
-				log.info("questionType = {}", questionType);
-				if (i == 1) {
-					questionPaperInitVo.setFirstQuestionType(questionType.name());
-				}
-				AnswerRecord answerRecord = new AnswerRecord();
-				answerRecord.setQuestionPaperId(questionPaper.getId());
-				answerRecord.setQuestionNo(i);
-				answerRecord.setQuestionType(questionType.toString());
-				answerRecord.setIsAccomplish(false);
-				answerRecord.setCreateTime(new Date());
-				answerRecord.setQuestionId(answerRecordService.randomQuestionId(questionPaper.getId(), questionType));
-				answerRecordService.createAnswerRecord(answerRecord);
-			}
-			questionPaperInitVo.setQuestionPaperId(questionPaper.getId());
-			return questionPaperInitVo;
-		} else {
-			questionPaperInitVo.setQuestionPaperId(questionPaperCheck.getId());
-			AnswerRecord newestAnswerRecord = answerRecordService.getNewestAnswerRecord(questionPaperCheck.getId());
-			if (newestAnswerRecord != null) {
-				questionPaperInitVo.setFirstQuestionType(newestAnswerRecord.getQuestionType());
-				questionPaperInitVo.setQuestionNo(newestAnswerRecord.getQuestionNo());
-			}
-			return questionPaperInitVo;
-		}
-	}
+ 
 
 	@Override
-	public QuestionInitVo createQuestionPaperNew() {
+	public QuestionInitVo createQuestionPaperNew(int grade) {
 		QuestionInitVo result = new QuestionInitVo();
 		List<QuestionVo> questions = new ArrayList<QuestionVo>();
 		List<String> curQuestion = new ArrayList<String>();
@@ -107,7 +63,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
 				result.setFirstQuestionType(questionType.name());
 			}
 			log.info("questionType = {}", questionType);
-			questionVo.setQuestionId(answerRecordService.randomQuestionId(curQuestion, questionType));
+			questionVo.setQuestionId(answerRecordService.randomQuestionId(curQuestion, questionType,grade));
 			questionVo.setQuestionNo(i);
 			questionVo.setQuestionType(questionType.name());
 			questions.add(questionVo);

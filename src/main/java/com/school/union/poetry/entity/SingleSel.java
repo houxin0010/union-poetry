@@ -37,4 +37,6 @@ public class SingleSel extends BaseEntity {
      */
     private Integer itemDifficulty;
     private Date createTime;
+    
+    private String grade;//年级
 }

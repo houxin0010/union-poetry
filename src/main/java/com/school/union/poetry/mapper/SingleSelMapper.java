@@ -20,6 +20,6 @@ public interface SingleSelMapper extends BaseMapper<SingleSel> {
     @Select( value = "SELECT id FROM single_sel WHERE id >= ((SELECT MAX(id) FROM single_sel) - (SELECT MIN(id) FROM single_sel)) * RAND() + (SELECT MIN(id) FROM single_sel) LIMIT 1")
     Long selectRandomId();
     
-    @Select( value = "SELECT id FROM single_sel")
-    List<Long> selectIds();
+    @Select( value = "SELECT id FROM single_sel where grade=#{grade}")
+    List<Long> selectIds(int grade);
 }

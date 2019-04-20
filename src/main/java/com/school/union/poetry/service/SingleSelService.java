@@ -8,6 +8,6 @@ import com.school.union.poetry.entity.SingleSel;
 public interface SingleSelService extends IService<SingleSel> {
 
     Long randomSingleSel();
-    List<Long> selectIds();
+    List<Long> selectIds(int grade);
 
 }

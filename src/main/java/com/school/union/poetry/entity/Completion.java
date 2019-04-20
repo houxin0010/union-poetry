@@ -33,4 +33,7 @@ public class Completion extends BaseEntity {
      */
     private Integer itemDifficulty;
     private Date createTime;
+    private String grade;//年级
+    private String type;//类型 UP:上句,DOWN：下句 
+    
 }

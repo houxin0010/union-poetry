@@ -9,5 +9,5 @@ public interface BankedClozeService extends IService<BankedCloze> {
 
     Long randomBankedCloze();
     
-    List<Long> selectIds();
+    List<Long> selectIds(int grade);
 }

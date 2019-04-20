@@ -25,8 +25,8 @@ public class CompletionServiceImpl extends ServiceImpl<CompletionMapper, Complet
     }
 
 	@Override
-	public List<Long> selectIds() {
-		return completionMapper.selectIds();
+	public List<Long> selectIds(int grade) {
+		return completionMapper.selectIds(grade);
 	}
     
     

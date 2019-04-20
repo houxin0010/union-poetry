@@ -28,8 +28,8 @@ public class QuestionPaperController {
     private QuestionPaperService questionPaperService;
 
     @RequestMapping("/init")
-    public ResultVo<QuestionInitVo> questionPaperInit() {
-        return ResultVo.success(questionPaperService.createQuestionPaperNew());
+    public ResultVo<QuestionInitVo> questionPaperInit(int grade) {
+        return ResultVo.success(questionPaperService.createQuestionPaperNew( grade));
     }
 
     @RequestMapping("/getcode")

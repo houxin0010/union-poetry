@@ -18,8 +18,7 @@ import com.school.union.poetry.vo.QuestionResultVo;
  */
 public interface QuestionPaperService extends IService<QuestionPaper> {
 
-    QuestionPaperInitVo createQuestionPaper(String openId);
-
+ 
     QuestionResultVo getQuestionContent(Long questionPaperId);
     QuestionResultVo getQuestionContent(Long questionId,String questionType);
  
@@ -27,5 +26,5 @@ public interface QuestionPaperService extends IService<QuestionPaper> {
 
     AnswerResultVo getScore(Long questionPaperId, String openId);
 
-    QuestionInitVo createQuestionPaperNew();
+    QuestionInitVo createQuestionPaperNew(int grade);
 }

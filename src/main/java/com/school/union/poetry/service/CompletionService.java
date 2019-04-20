@@ -8,5 +8,5 @@ import com.school.union.poetry.entity.Completion;
 public interface CompletionService extends IService<Completion> {
     Long randomCompletion();
     
-    List<Long> selectIds();
+    List<Long> selectIds(int grade);
 }

@@ -24,8 +24,8 @@ public class BankedClozeServiceImpl extends ServiceImpl<BankedClozeMapper, Banke
     }
 
 	@Override
-	public List<Long> selectIds() {
+	public List<Long> selectIds(int grade) {
 		 
-		return bankedClozeMapper.selectIds();
+		return bankedClozeMapper.selectIds(grade);
 	}
 }
