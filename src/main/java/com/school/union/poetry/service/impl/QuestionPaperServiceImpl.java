@@ -116,7 +116,7 @@ public class QuestionPaperServiceImpl extends ServiceImpl<QuestionPaperMapper, Q
         QuestionResultVo questionResultVo = new QuestionResultVo();
         questionResultVo.setCurrentScore(0);
         questionResultVo.setQuestionType(questionType);
-        questionResultVo.setQuestionTotal(5);
+        questionResultVo.setQuestionTotal(20);
         if (QuestionType.COMPLETION.name().equals(questionType)) {
             Completion completion = completionService.getById(questionId);
             questionResultVo.setQuestion(completion.getQuestion());

@@ -10,6 +10,7 @@ import com.school.union.poetry.service.AnswerRecordService;
 import com.school.union.poetry.service.BankedClozeService;
 import com.school.union.poetry.service.CompletionService;
 import com.school.union.poetry.service.SingleSelService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@Slf4j
 @Service
 @Transactional
 public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, AnswerRecord>
@@ -51,7 +53,7 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
     public Long randomQuestionId(List<String> curQuestion, QuestionType questionType,int grade) {
         Long questionId = null;
         questionId = getRandomQuestionId(questionType, questionId, grade);
-
+		log.info("question id = {}",questionId);
         if (!curQuestion.contains(questionType + "-" + questionId.toString())) {
             curQuestion.add(questionType + "-" + questionId.toString());
             return questionId;
