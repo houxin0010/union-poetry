@@ -33,14 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(customUserService()).passwordEncoder(new PasswordEncoder() {
             @Override
             public String encode(CharSequence charSequence) {
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                return bCryptPasswordEncoder.encode(charSequence.toString());
+                return new BCryptPasswordEncoder().encode(charSequence.toString());
             }
 
             @Override
             public boolean matches(CharSequence charSequence, String s) {
-                BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                boolean matches = bCryptPasswordEncoder.matches(charSequence, s);
+                boolean matches = new BCryptPasswordEncoder().matches(charSequence, s);
                 log.info("s = {}, c = {}", s, charSequence);
                 if (!matches) {
                     log.info("密码错误");

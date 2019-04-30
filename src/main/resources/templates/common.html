@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-
     <th:block th:fragment="header">
-
+        <meta charset="UTF-8">
+        <title>诗词大会后台管理</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
         <link rel="stylesheet" type="text/css" th:href="@{/semantic/semantic.min.css}">
         <link th:href="@{/semantic-ui-calendar/calendar.css}" rel="stylesheet">
 
-        <script th:src="@{jquery-3.1.1.min.js}"></script>
+        <script th:src="@{/jquery-3.1.1.min.js}"></script>
         <script th:src="@{/semantic/semantic.min.js}"></script>
         <script th:src="@{/semantic-ui-calendar/calendar.js}" charset="utf-8"></script>
     </th:block>
@@ -24,7 +22,7 @@
         <div class="item">
             <h2 class="ui teal header">
                 <i class="student icon"></i>
-                <div class="content" id="topTip">小学报名信息查询</div>
+                <div class="content" id="topTip"></div>
             </h2>
         </div>
         <div class="right menu" style="margin-right: 20px;">
@@ -44,8 +42,7 @@
             后台管理
         </h2>
         <a class="item" th:href="@{/backstage/index}" id="index">首页</a>
-        <a class="item" th:href="@{/backstage/middle/index}" id="middleSchoolMenu">初中报名</a>
-        <a class="item" th:href="@{/backstage/teacher/index}" id="teacherSchoolMenu">教师招聘</a>
+        <a class="item" th:href="@{/backstage/middle/index}" id="answerRecordMenu">答题记录</a>
     </div>
 </th:block>
 
@@ -59,8 +56,7 @@
         </a>
         <th:block th:each="nav:${#numbers.sequence(1,pages)}">
             <a class="ui item disabled" th:if="${nav == current}" th:text="${nav}"></a>
-            <a class="item" th:if="${nav != current}" th:text="${nav}"
-               th:onclick="|javascript:queryStudentInfo(${nav})|"></a>
+            <a class="item" th:if="${nav != current}" th:text="${nav}" th:onclick="|javascript:queryStudentInfo(${nav})|"></a>
         </th:block>
         <a class="icon item" th:if="${current < pages}" th:onclick="|javascript:queryStudentInfo(${current + 1})|">
             <i class="right chevron icon"></i>
