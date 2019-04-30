@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:fragment="header">
+        <meta charset="UTF-8">
+        <title>诗词大会后台管理</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+        <link rel="stylesheet" type="text/css" th:href="@{/semantic/semantic.min.css}">
+        <link th:href="@{/semantic-ui-calendar/calendar.css}" rel="stylesheet">
+
+        <script th:src="@{/jquery-3.1.1.min.js}"></script>
+        <script th:src="@{/semantic/semantic.min.js}"></script>
+        <script th:src="@{/semantic-ui-calendar/calendar.js}" charset="utf-8"></script>
+    </th:block>
+
+</head>
+<body>
+<th:block th:fragment="topMenu">
+    <div class="ui small menu">
+        <div class="item">
+            <h2 class="ui teal header">
+                <i class="student icon"></i>
+                <div class="content" id="topTip"></div>
+            </h2>
+        </div>
+        <div class="right menu" style="margin-right: 20px;">
+            <h4 class="ui header" style="margin-top: 13px; margin-right: 15px">
+                <img th:src="@{../images/steve.jpg}" class="ui circular image">
+                尊敬的管理员，您好!
+            </h4>
+            <a th:href="@{/logout}" class="ui red small inverted button" style="height: 35px; margin-top: 15px;">注销</a>
+        </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="leftMenu">
+    <div class="ui left fixed vertical large inverted menu">
+        <h2 class="ui inverted teal header" style="margin-left: 15px; margin-top: 20px">
+            <i class="desktop icon"></i>
+            后台管理
+        </h2>
+        <a class="item" th:href="@{/backstage/index}" id="index">首页</a>
+        <a class="item" th:href="@{/backstage/middle/index}" id="answerRecordMenu">答题记录</a>
+    </div>
+</th:block>
+
+<th:block th:fragment="page(current, pages)">
+    <div class="ui right floated pagination menu">
+        <a class="icon item" th:if="${current > 1}" th:onclick="|javascript:queryStudentInfo(${current - 1})|">
+            <i class="left chevron icon"></i>
+        </a>
+        <a class="ui icon item disabled" th:if="${current == 1}">
+            <i class="left chevron icon"></i>
+        </a>
+        <th:block th:each="nav:${#numbers.sequence(1,pages)}">
+            <a class="ui item disabled" th:if="${nav == current}" th:text="${nav}"></a>
+            <a class="item" th:if="${nav != current}" th:text="${nav}" th:onclick="|javascript:queryStudentInfo(${nav})|"></a>
+        </th:block>
+        <a class="icon item" th:if="${current < pages}" th:onclick="|javascript:queryStudentInfo(${current + 1})|">
+            <i class="right chevron icon"></i>
+        </a>
+        <a class="ui icon item disabled" th:if="${current == pages}">
+            <i class="right chevron icon"></i>
+        </a>
+    </div>
+</th:block>
+</body>
+</html>

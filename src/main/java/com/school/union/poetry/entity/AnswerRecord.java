@@ -41,6 +41,10 @@ public class AnswerRecord extends BaseEntity {
      */
     private Boolean isCorrect;
     /**
+     * 用户答案
+     */
+    private String userAnswer;
+    /**
      * 创建时间
      */
     private Date createTime;
