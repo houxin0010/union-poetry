@@ -1,12 +1,6 @@
 package com.school.union.poetry.controller;
 
-import com.school.union.poetry.vo.AnswerResultVo;
-import com.school.union.poetry.vo.QuestionInitVo;
-import com.school.union.poetry.vo.QuestionVo;
-
-import lombok.extern.slf4j.Slf4j;
-
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,10 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.kit.HttpKit;
+import com.school.union.poetry.entity.AnswerRecord;
+import com.school.union.poetry.service.AnswerRecordService;
 import com.school.union.poetry.service.QuestionPaperService;
-import com.school.union.poetry.vo.QuestionPaperInitVo;
+import com.school.union.poetry.vo.AnswerResultVo;
+import com.school.union.poetry.vo.QuestionInitVo;
 import com.school.union.poetry.vo.QuestionResultVo;
 import com.school.union.poetry.vo.base.ResultVo;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
@@ -26,6 +25,9 @@ public class QuestionPaperController {
 
     @Autowired
     private QuestionPaperService questionPaperService;
+    
+    @Autowired
+    private AnswerRecordService answerRecordService;
 
     @RequestMapping("/init")
     public ResultVo<QuestionInitVo> questionPaperInit(int grade) {
@@ -50,6 +52,20 @@ public class QuestionPaperController {
     @RequestMapping("/getQuestion")
     public ResultVo<QuestionResultVo> getQuestion(Long questionId,String questionType) {
         return ResultVo.success(questionPaperService.getQuestionContent(questionId,questionType));
+    }
+    
+    @RequestMapping("/record")
+    public ResultVo<Boolean> record(Long qid,String qtype,String userAnswer,String answer) {
+    	
+    	AnswerRecord  answerResult=new AnswerRecord();
+    	answerResult.setCreateTime(new Date());
+    	answerResult.setIsCorrect(false);
+    	answerResult.setQuestionId(qid);
+    	answerResult.setQuestionType(qtype);
+    	answerResult.setUserAnswer(userAnswer);
+    	answerResult.setAnswer(answer);
+        answerRecordService.createAnswerRecord(answerResult);
+         return  ResultVo.success(true);
     }
 
     @RequestMapping("/completeQuestion")
