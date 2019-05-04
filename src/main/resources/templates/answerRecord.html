@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="common::header"></div>
+</head>
+<body>
+
+<div th:replace="common::leftMenu"></div>
+<div class="main" style="margin-left: 19em; margin-right: 1em;">
+    <div class="main">
+        <div class="ui grid">
+            <div class="right floated column">
+                <div th:replace="common::topMenu"></div>
+                <div class="ui segment">
+                    <form class="ui form">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>题型</label>
+                                <select class="ui dropdown" name="questionType">
+                                    <option value="">全部</option>
+                                    <option value="SINGLE_SEL">选择题</option>
+                                    <option value="COMPLETION">填空题</option>
+                                    <option value="BANKED_CLOZE">选字填空题</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>是否正确</label>
+                                <select class="ui dropdown" name="isCorrect">
+                                    <option value="">全部</option>
+                                    <option value="true">正确</option>
+                                    <option value="false">错误</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>答题时间</label>
+                                <div class="two fields">
+                                    <div class="field">
+                                        <div class="ui calendar">
+                                            <div class="ui input left icon">
+                                                <i class="calendar alternate icon"></i>
+                                                <input type="text" placeholder="开始日期" value="" name="startTime">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    -
+                                    <div class="field">
+                                        <div class="ui calendar">
+                                            <div class="ui input left icon">
+                                                <i class="calendar alternate icon"></i>
+                                                <input type="text" placeholder="结束日期" value="" name="endTime">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal button" th:onclick="|javascript:queryStudentInfo(1)|">查询</div>
+                        <div class="ui button" th:onclick="|javascript:resst()|">重置</div>
+                    </form>
+                </div>
+                <div class="ui segment">
+                    <div id="answerRecordList" th:fragment="answerRecordList">
+                        <table class="ui celled table center aligned">
+                            <thead>
+                            <tr>
+                                <th>题型</th>
+                                <th>用户答案</th>
+                                <th>是否正确</th>
+                                <th>答题时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="anwerRecord:${answerRecordResult.records}">
+                                <td th:switch="${anwerRecord.questionType}">
+                                    <label th:case="SINGLE_SEL">选择题</label>
+                                    <label th:case="COMPLETION">填空题</label>
+                                    <label th:case="BANKED_CLOZE">选字填空题</label>
+                                </td>
+                                <td th:text="${anwerRecord.userAnswer}"></td>
+                                <td th:class="${anwerRecord.isCorrect}?'positive':'negative'">
+                                    <i th:class="${anwerRecord.isCorrect}?'icon checkmark':'icon close'"></i>
+                                </td>
+                                <td>
+                                    <label th:text="${#dates.format(anwerRecord.createTime,'yyyy-MM-dd')}"></label>
+                                </td>
+                                <td>
+                                    <button class="ui small blue inverted button"
+                                            th:onclick="|javascript:findDetail(${anwerRecord.id})|">题目详情</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="5">
+                                    <div th:replace="common :: page(${answerRecordResult.current}, ${answerRecordResult.pages})"></div>
+                                </th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/answerRecord.js}"></script>
+</html>
