@@ -6,7 +6,7 @@ function resst() {
     $('form').form('clear');
 }
 
-function queryStudentInfo(page) {
+function queryAnswerRecord(page) {
     let $form = $('.ui.segment form');
     let allFields = $form.form('get values');
     allFields.page = page;

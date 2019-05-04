@@ -20,6 +20,6 @@ public interface AnswerRecordService extends IService<AnswerRecord> {
 
     AnswerRecord getAnswerRecord(Long questionPaperId, Integer questionNumber);
 
-    IPage<GetAnswerRecordVo> queryAnswerRecord(Page<AnswerRecord> page, GetAnswerRecordParam getAnswerRecordParam);
+    IPage<GetAnswerRecordVo> queryAnswerRecord(Page page, GetAnswerRecordParam getAnswerRecordParam);
 
 }

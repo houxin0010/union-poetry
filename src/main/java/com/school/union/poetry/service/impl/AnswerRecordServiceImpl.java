@@ -97,19 +97,21 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
     }
 
     @Override
-    public IPage<GetAnswerRecordVo> queryAnswerRecord(Page<AnswerRecord> page, GetAnswerRecordParam getAnswerRecordParam) {
+    public IPage<GetAnswerRecordVo> queryAnswerRecord(Page page, GetAnswerRecordParam getAnswerRecordParam) {
+        log.info("page = {}", JSON.toJSONString(page));
         AnswerRecord answerRecord = new AnswerRecord();
         BeanUtils.copyProperties(getAnswerRecordParam, answerRecord);
         IPage<GetAnswerRecordVo> listIPage = answerRecordMapper.selectByParams(page, answerRecord, getAnswerRecordParam.getStartTime(), getAnswerRecordParam.getEndTime());
-        log.info("answerRecordList = {}", JSON.toJSONString(listIPage));
         List<GetAnswerRecordVo> answerRecordList = listIPage.getRecords();
         answerRecordList.forEach(record -> {
             if (QuestionType.COMPLETION.name().equals(record.getQuestionType())) {
                 Completion completion = completionMapper.selectById(record.getQuestionId());
-                BeanUtils.copyProperties(completion, record);
+                record.setQuestion(completion.getQuestion());
+                record.setAnswer(completion.getAnswer());
             } else if (QuestionType.SINGLE_SEL.name().equals(record.getQuestionType())) {
                 SingleSel singleSel = singleSelMapper.selectById(record.getQuestionId());
-                BeanUtils.copyProperties(singleSel, record);
+                record.setQuestion(singleSel.getQuestion());
+                record.setAnswer(singleSel.getAnswer());
                 List<String> options = new ArrayList<>();
                 options.add(singleSel.getChoiceA());
                 options.add(singleSel.getChoiceB());
@@ -117,11 +119,13 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
                 record.setOptions(options);
             } else if (QuestionType.BANKED_CLOZE.name().equals(record.getQuestionType())) {
                 BankedCloze bankedCloze = bankedClozeMapper.selectById(record.getQuestionId());
-                BeanUtils.copyProperties(bankedCloze, record);
+                record.setQuestion(bankedCloze.getQuestion());
+                record.setAnswer(bankedCloze.getAnswer());
                 List<String> options = Arrays.asList(bankedCloze.getOptions().split(","));
                 record.setOptions(options);
             }
         });
+        log.info("answerRecordList = {}", JSON.toJSONString(listIPage));
         return listIPage;
     }
 

@@ -1,11 +1,14 @@
 package com.school.union.poetry.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfinal.json.Json;
 import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.service.AnswerRecordService;
 import com.school.union.poetry.vo.GetAnswerRecordVo;
 import com.school.union.poetry.vo.param.GetAnswerRecordParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author houxin
  * @date 2019/4/30
  */
+@Slf4j
 @Controller
 @RequestMapping("/answerRecord")
 public class AnswerRecordController {
@@ -28,7 +32,8 @@ public class AnswerRecordController {
 
     @RequestMapping("/index")
     public String index(GetAnswerRecordParam getAnswerRecordParam, Model model) {
-        Page<AnswerRecord> page = new Page<>(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
+        log.info("getAnswerRecordParam = {}", JSON.toJSONString(getAnswerRecordParam));
+        Page page = new Page(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
         IPage<GetAnswerRecordVo> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
         model.addAttribute("answerRecordResult", getAnswerRecordVoIPage);
         return "answerRecord";
@@ -36,7 +41,7 @@ public class AnswerRecordController {
 
     @PostMapping("/getAnswerRecord")
     public String getAnswerRecord(GetAnswerRecordParam getAnswerRecordParam, Model model) {
-        Page<AnswerRecord> page = new Page<>(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
+        Page<GetAnswerRecordVo> page = new Page<>(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
         IPage<GetAnswerRecordVo> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
         model.addAttribute("answerRecordResult", getAnswerRecordVoIPage);
         return "answerRecord::answerRecordList";
