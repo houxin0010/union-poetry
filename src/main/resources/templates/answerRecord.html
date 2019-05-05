@@ -4,7 +4,42 @@
     <div th:replace="common::header"></div>
 </head>
 <body>
-
+<th:block>
+    <div class="ui modal transition">
+        <div class="header">
+            题目详情
+        </div>
+        <div class="content" id="questionDetail" th:fragment="questionDetail">
+            <div class="ui form">
+                <th:block th:switch="${questionDetailResult?.questionType}">
+                    <h4 class="ui dividing header" th:case="SINGLE_SEL">选择题</h4>
+                    <h4 class="ui dividing header" th:case="COMPLETION">填空题</h4>
+                    <h4 class="ui dividing header" th:case="BANKED_CLOZE">选字填空题</h4>
+                </th:block>
+                <div class="field dividing">
+                    <label th:text="${questionDetailResult?.question}"></label>
+                </div>
+                <div class="ui divider"></div>
+                <div class="field">
+                    <h4 class="ui header">选项:</h4>
+                    <th:block th:each="option:${questionDetailResult?.options}">
+                        <label th:text="${option}"></label>
+                    </th:block>
+                </div>
+                <div class="ui divider"></div>
+                <div class="field">
+                    <h4 class="ui header">参考答案:</h4>
+                    <label th:text="${questionDetailResult?.answer}"></label>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <div class="ui black deny button">
+                关闭
+            </div>
+        </div>
+    </div>
+</th:block>
 <div th:replace="common::leftMenu"></div>
 <div class="main" style="margin-left: 19em; margin-right: 1em;">
     <div class="main">
@@ -79,14 +114,16 @@
                                 </td>
                                 <td th:text="${anwerRecord.userAnswer}"></td>
                                 <td th:class="${anwerRecord.isCorrect}?'positive':'negative'">
-                                    <i th:class="${anwerRecord.isCorrect}?'icon checkmark':'icon close'"></i>
+                                    <i th:class="${anwerRecord.isCorrect}?'large icon checkmark':'large icon close'"></i>
                                 </td>
                                 <td>
                                     <label th:text="${#dates.format(anwerRecord.createTime,'yyyy-MM-dd')}"></label>
                                 </td>
                                 <td>
                                     <button class="ui small blue inverted button"
-                                            th:onclick="|javascript:findDetail(${anwerRecord.id})|">题目详情</button>
+                                            th:onclick="|javascript:findDetail(${anwerRecord.id})|">
+                                        题目详情
+                                    </button>
                                 </td>
                             </tr>
                             </tbody>

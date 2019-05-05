@@ -36,8 +36,8 @@ public class PoetryApplicationTests {
 
         GetAnswerRecordParam getAnswerRecordParam=new GetAnswerRecordParam();
         getAnswerRecordParam.setQuestionType("SINGLE_SEL");
-        Page<GetAnswerRecordVo> page = new Page<>(1, 10);
-        IPage<GetAnswerRecordVo> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
+        Page<AnswerRecord> page = new Page<>(1, 10);
+        IPage<AnswerRecord> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
         log.info("getAnswerRecordVoIPage = {}", JSON.toJSONString(getAnswerRecordVoIPage));
     }
 

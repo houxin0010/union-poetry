@@ -7,6 +7,7 @@ import com.jfinal.json.Json;
 import com.school.union.poetry.entity.AnswerRecord;
 import com.school.union.poetry.service.AnswerRecordService;
 import com.school.union.poetry.vo.GetAnswerRecordVo;
+import com.school.union.poetry.vo.QuestionResultVo;
 import com.school.union.poetry.vo.param.GetAnswerRecordParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +35,24 @@ public class AnswerRecordController {
     public String index(GetAnswerRecordParam getAnswerRecordParam, Model model) {
         log.info("getAnswerRecordParam = {}", JSON.toJSONString(getAnswerRecordParam));
         Page page = new Page(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
-        IPage<GetAnswerRecordVo> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
-        model.addAttribute("answerRecordResult", getAnswerRecordVoIPage);
+        IPage<AnswerRecord> answerRecordIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
+        model.addAttribute("answerRecordResult", answerRecordIPage);
         return "answerRecord";
     }
 
     @PostMapping("/getAnswerRecord")
     public String getAnswerRecord(GetAnswerRecordParam getAnswerRecordParam, Model model) {
-        Page<GetAnswerRecordVo> page = new Page<>(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
-        IPage<GetAnswerRecordVo> getAnswerRecordVoIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
-        model.addAttribute("answerRecordResult", getAnswerRecordVoIPage);
+        Page page = new Page(getAnswerRecordParam.getPage(), getAnswerRecordParam.getSize());
+        IPage<AnswerRecord> answerRecordIPage = answerRecordService.queryAnswerRecord(page, getAnswerRecordParam);
+        model.addAttribute("answerRecordResult", answerRecordIPage);
         return "answerRecord::answerRecordList";
+    }
+
+    @GetMapping("/getQuestionDetail")
+    public String getQuestionDetail(Long id, Model model) {
+        QuestionResultVo questionResultVo = answerRecordService.queryQuestionDetail(id);
+        model.addAttribute("questionDetailResult", questionResultVo);
+        return "answerRecord::questionDetail";
     }
 
 }

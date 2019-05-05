@@ -23,3 +23,17 @@ function queryAnswerRecord(page) {
     });
 }
 
+function findDetail(answerRecordId) {
+    console.log(answerRecordId);
+    $('.ui.modal').modal('show');
+    let url = "/answerRecord/getQuestionDetail";
+    $.ajax({
+        url: url,
+        type: 'GET',
+        data: {id:answerRecordId},
+        success: function (data) {
+            $('#questionDetail').html(data);
+        }
+    });
+}
+

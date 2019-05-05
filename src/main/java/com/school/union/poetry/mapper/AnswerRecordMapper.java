@@ -23,6 +23,6 @@ import java.util.List;
 public interface AnswerRecordMapper extends BaseMapper<AnswerRecord> {
 
     @SelectProvider(type = AnswerRecordProvider.class, method = "selectByParamsSql")
-    IPage<GetAnswerRecordVo> selectByParams(Page page, @Param("answerRecord") AnswerRecord answerRecord,
+    IPage<AnswerRecord> selectByParams(Page page, @Param("answerRecord") AnswerRecord answerRecord,
                                             @Param("startTime") String startTime, @Param("endTime") String endTime);
 }

@@ -15,11 +15,9 @@ import com.school.union.poetry.mapper.AnswerRecordMapper;
 import com.school.union.poetry.mapper.BankedClozeMapper;
 import com.school.union.poetry.mapper.CompletionMapper;
 import com.school.union.poetry.mapper.SingleSelMapper;
-import com.school.union.poetry.service.AnswerRecordService;
-import com.school.union.poetry.service.BankedClozeService;
-import com.school.union.poetry.service.CompletionService;
-import com.school.union.poetry.service.SingleSelService;
+import com.school.union.poetry.service.*;
 import com.school.union.poetry.vo.GetAnswerRecordVo;
+import com.school.union.poetry.vo.QuestionResultVo;
 import com.school.union.poetry.vo.param.GetAnswerRecordParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -50,6 +48,8 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
     private BankedClozeService bankedClozeService;
     @Autowired
     private CompletionService completionService;
+    @Autowired
+    private QuestionPaperService questionPaperService;
 
     private static List<Long> completionIds3 = null;
     private static List<Long> singleSelIds3 = null;
@@ -97,36 +97,28 @@ public class AnswerRecordServiceImpl extends ServiceImpl<AnswerRecordMapper, Ans
     }
 
     @Override
-    public IPage<GetAnswerRecordVo> queryAnswerRecord(Page page, GetAnswerRecordParam getAnswerRecordParam) {
-        log.info("page = {}", JSON.toJSONString(page));
+    public IPage<AnswerRecord> queryAnswerRecord(Page page, GetAnswerRecordParam getAnswerRecordParam) {
         AnswerRecord answerRecord = new AnswerRecord();
         BeanUtils.copyProperties(getAnswerRecordParam, answerRecord);
-        IPage<GetAnswerRecordVo> listIPage = answerRecordMapper.selectByParams(page, answerRecord, getAnswerRecordParam.getStartTime(), getAnswerRecordParam.getEndTime());
-        List<GetAnswerRecordVo> answerRecordList = listIPage.getRecords();
-        answerRecordList.forEach(record -> {
-            if (QuestionType.COMPLETION.name().equals(record.getQuestionType())) {
-                Completion completion = completionMapper.selectById(record.getQuestionId());
-                record.setQuestion(completion.getQuestion());
-                record.setAnswer(completion.getAnswer());
-            } else if (QuestionType.SINGLE_SEL.name().equals(record.getQuestionType())) {
-                SingleSel singleSel = singleSelMapper.selectById(record.getQuestionId());
-                record.setQuestion(singleSel.getQuestion());
-                record.setAnswer(singleSel.getAnswer());
-                List<String> options = new ArrayList<>();
-                options.add(singleSel.getChoiceA());
-                options.add(singleSel.getChoiceB());
-                options.add(singleSel.getChoiceC());
-                record.setOptions(options);
-            } else if (QuestionType.BANKED_CLOZE.name().equals(record.getQuestionType())) {
-                BankedCloze bankedCloze = bankedClozeMapper.selectById(record.getQuestionId());
-                record.setQuestion(bankedCloze.getQuestion());
-                record.setAnswer(bankedCloze.getAnswer());
-                List<String> options = Arrays.asList(bankedCloze.getOptions().split(","));
-                record.setOptions(options);
-            }
-        });
+        IPage<AnswerRecord> listIPage = answerRecordMapper.selectByParams(page, answerRecord, getAnswerRecordParam.getStartTime(), getAnswerRecordParam.getEndTime());
         log.info("answerRecordList = {}", JSON.toJSONString(listIPage));
         return listIPage;
+    }
+
+    @Override
+    public QuestionResultVo queryQuestionDetail(Long id) {
+        AnswerRecord answerRecord = answerRecordMapper.selectById(id);
+        QuestionResultVo questionContent = questionPaperService.getQuestionContent(answerRecord.getQuestionId(), answerRecord.getQuestionType());
+        if (QuestionType.SINGLE_SEL.name().equals(questionContent.getQuestionType())) {
+            List<String> options = new ArrayList<>();
+            int i = 0;
+            for (String option : questionContent.getOptions()) {
+                options.add((char) (65 + i) + "、" + option);
+                i++;
+            }
+            questionContent.setOptions(options);
+        }
+        return questionContent;
     }
 
     private Long getRandomQuestionId(QuestionType questionType, Long questionId, int grade) {
