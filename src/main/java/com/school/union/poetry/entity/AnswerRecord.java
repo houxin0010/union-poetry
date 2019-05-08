@@ -49,6 +49,5 @@ public class AnswerRecord extends BaseEntity {
      */
     private Date createTime;
     
-    private String userAnswer;
-    private String answer;
+     private String answer;
 }
