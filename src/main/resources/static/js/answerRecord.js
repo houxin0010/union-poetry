@@ -12,7 +12,7 @@ function queryAnswerRecord(page) {
     allFields.page = page;
     allFields.size = 10;
     console.log(allFields);
-    let url = "/answerRecord/getAnswerRecord";
+    let url = "/poetry/answerRecord/getAnswerRecord";
     $.ajax({
         url: url,
         type: 'POST',
@@ -26,7 +26,7 @@ function queryAnswerRecord(page) {
 function findDetail(answerRecordId) {
     console.log(answerRecordId);
     $('.ui.modal').modal('show');
-    let url = "/answerRecord/getQuestionDetail";
+    let url = "/poetry/answerRecord/getQuestionDetail";
     $.ajax({
         url: url,
         type: 'GET',
