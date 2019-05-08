@@ -1,6 +1,5 @@
 package com.school.union.poetry.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.school.union.poetry.entity.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

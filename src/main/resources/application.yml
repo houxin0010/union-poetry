@@ -29,7 +29,7 @@ server:
   servlet:
     session:
       timeout: 120m
-  port: 10087
+  port: 10086
 
 logging:
   level:

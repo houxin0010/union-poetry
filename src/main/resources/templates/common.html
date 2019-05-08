@@ -42,13 +42,13 @@
             后台管理
         </h2>
         <a class="item" th:href="@{/backstage/index}" id="index">首页</a>
-        <a class="item" th:href="@{/backstage/middle/index}" id="answerRecordMenu">答题记录</a>
+        <a class="item" th:href="@{/answerRecord/index}" id="answerRecordMenu">答题记录</a>
     </div>
 </th:block>
 
 <th:block th:fragment="page(current, pages)">
     <div class="ui right floated pagination menu">
-        <a class="icon item" th:if="${current > 1}" th:onclick="|javascript:queryStudentInfo(${current - 1})|">
+        <a class="icon item" th:if="${current > 1}" th:onclick="|javascript:queryAnswerRecord(${current - 1})|">
             <i class="left chevron icon"></i>
         </a>
         <a class="ui icon item disabled" th:if="${current == 1}">
@@ -56,9 +56,9 @@
         </a>
         <th:block th:each="nav:${#numbers.sequence(1,pages)}">
             <a class="ui item disabled" th:if="${nav == current}" th:text="${nav}"></a>
-            <a class="item" th:if="${nav != current}" th:text="${nav}" th:onclick="|javascript:queryStudentInfo(${nav})|"></a>
+            <a class="item" th:if="${nav != current}" th:text="${nav}" th:onclick="|javascript:queryAnswerRecord(${nav})|"></a>
         </th:block>
-        <a class="icon item" th:if="${current < pages}" th:onclick="|javascript:queryStudentInfo(${current + 1})|">
+        <a class="icon item" th:if="${current < pages}" th:onclick="|javascript:queryAnswerRecord(${current + 1})|">
             <i class="right chevron icon"></i>
         </a>
         <a class="ui icon item disabled" th:if="${current == pages}">

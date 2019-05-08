@@ -56,7 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionRegistry(new SessionRegistryImpl());
         http.authorizeRequests()
                 //后台管理只允许管理员角色访问
-                .antMatchers("/backstage/**").hasRole("ADMIN")
+                .antMatchers("/backstage/**", "/answerRecord/**").hasRole("ADMIN")
                 .and()
                 .formLogin().loginPage("/login")
                 .defaultSuccessUrl("/backstage/index").permitAll()
